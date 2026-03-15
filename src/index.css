@@ -1,6 +1,125 @@
 @import "tailwindcss";
 
+@theme {
+  --font-nunito: "Nunito", sans-serif;
+  --font-caveat: "Caveat", cursive;
+  --color-panda-black: #1a1a2e;
+  --color-panda-cream: #fef9f0;
+  --color-panda-green: #4a7c59;
+  --color-panda-green-light: #6ba368;
+  --color-panda-green-pale: #e8f0e4;
+  --color-bamboo: #8fbc5a;
+  --color-bamboo-dark: #5c8a2f;
+  --color-panda-pink: #f2a7b3;
+  --color-panda-orange: #f4845f;
+}
+
 body {
   margin: 0;
+  font-family: "Nunito", sans-serif;
   -webkit-font-smoothing: antialiased;
+  background-color: var(--color-panda-cream);
+}
+
+/* Subtle bamboo pattern on the page background */
+.bamboo-bg {
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(143, 188, 90, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(74, 124, 89, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 60% 80%, rgba(143, 188, 90, 0.05) 0%, transparent 45%);
+}
+
+/* Floating bamboo decorations */
+.bamboo-leaf {
+  position: fixed;
+  pointer-events: none;
+  opacity: 0.08;
+  font-size: 3rem;
+  z-index: 0;
+  animation: sway 6s ease-in-out infinite;
+}
+
+.bamboo-leaf:nth-child(2) {
+  animation-delay: -2s;
+  animation-duration: 8s;
+}
+
+.bamboo-leaf:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 7s;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-3deg) translateX(0); }
+  50% { transform: rotate(3deg) translateX(8px); }
+}
+
+/* Card hover wobble */
+@keyframes wobble {
+  0%, 100% { transform: rotate(var(--card-rotate, 0deg)); }
+  25% { transform: rotate(calc(var(--card-rotate, 0deg) + 1.5deg)); }
+  75% { transform: rotate(calc(var(--card-rotate, 0deg) - 1deg)); }
+}
+
+.game-card {
+  --card-rotate: 0deg;
+  transform: rotate(var(--card-rotate));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+  animation: wobble 0.5s ease;
+  animation-fill-mode: forwards;
+  box-shadow:
+    0 8px 25px rgba(74, 124, 89, 0.15),
+    0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Dashed hand-drawn border */
+.hand-drawn-border {
+  border: 2.5px dashed var(--color-panda-green);
+  border-radius: 16px;
+}
+
+/* Panda bounce for the mascot */
+@keyframes panda-bounce {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
+
+.panda-mascot {
+  display: inline-block;
+  animation: panda-bounce 3s ease-in-out infinite;
+}
+
+/* Sticker effect for tags */
+.sticker {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transform: rotate(-1.5deg);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero subtitle handwriting style */
+.handwritten {
+  font-family: "Caveat", cursive;
+}
+
+/* Organic section divider */
+.organic-divider {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-bamboo) 15%,
+    var(--color-panda-green) 50%,
+    var(--color-bamboo) 85%,
+    transparent 100%
+  );
+  border-radius: 2px;
+  opacity: 0.4;
 }
